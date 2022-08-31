@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'djmoney',
     "FinanceApp.apps.FinanceappConfig",
     "User.apps.UserConfig",
     "django.contrib.admin",
