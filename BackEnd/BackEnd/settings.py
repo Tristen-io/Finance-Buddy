@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'rest_framework',
     'djmoney',
     "FinanceApp.apps.FinanceappConfig",
     "User.apps.UserConfig",
@@ -127,5 +128,7 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-
+#Using the Abstract User Model defined in User App.
 AUTH_USER_MODEL = 'User.AppUser'
+
+
