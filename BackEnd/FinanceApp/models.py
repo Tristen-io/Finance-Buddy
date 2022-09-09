@@ -24,7 +24,7 @@ payment_schedule_choices = (
         ("one-time", "one-time"),
         )
 income_type_choices = (
-    ("saplary", "salary"),
+    ("salary", "salary"),
     ("property", "property"),
     ("business", "business"),
     ("other", "other")
