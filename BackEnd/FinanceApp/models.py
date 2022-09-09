@@ -14,3 +14,34 @@ class Budget(models.Model):
     def __str__(self):
         return self.name 
 # Create your models here.
+
+
+payment_schedule_choices = (
+        ("monthly", "monthly"), 
+        ("semi-monthly", "semi-monthly"), 
+        ("bi-weekly", "bi-weekly"), 
+        ("weekly", "weekly"),
+        ("one-time", "one-time"),
+        )
+income_type_choices = (
+    ("saplary", "salary"),
+    ("property", "property"),
+    ("business", "business"),
+    ("other", "other")
+)
+
+class Income(models.Model):
+    name = models.CharField(max_length=50)
+    user = models.ForeignKey(AppUser, on_delete=models.CASCADE)
+    amount = MoneyField(max_digits=14, decimal_places=2, default_currency='USD')
+    payment_schedule = models.CharField(
+        max_length=20,
+        choices= payment_schedule_choices,
+    )
+    type = models.CharField(
+        max_length=20,
+        choices = income_type_choices
+    )
+
+
+    
