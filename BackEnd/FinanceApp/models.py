@@ -43,5 +43,8 @@ class Income(models.Model):
         choices = income_type_choices
     )
 
+    def __str__(self):
+        return self.name 
+
 
     

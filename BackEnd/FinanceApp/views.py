@@ -5,12 +5,13 @@ from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.http import JsonResponse
-from .models import Budget
+from .models import Budget, Income
 from User.models import AppUser
 from djmoney.money import Money
 
 from .serializers import (
-    BudgetSerializer
+    BudgetSerializer,
+    IncomeSerializer
 )
 # Create your views here.
 
@@ -95,4 +96,52 @@ def budget_amount_update(request, budget_pk):
 
 
     
-    
+# Income
+
+@api_view(['GET'])
+def income_list(request):
+    if request.method == 'GET':
+        try:
+            income = Income.objects.all()
+        except:
+            return Response({"message": "could not find income"})
+        serialized = IncomeSerializer(income)
+        return Response(serialized.data)
+
+@api_view(['GET', 'POST'])
+def income_detail(request, income_pk):
+    if request.method == 'GET':
+        try:
+            income = Income.objects.get(pk=income_pk)
+        except:
+            return Response({"message": "could not find income"})
+        serialized = IncomeSerializer(income, many=True)
+        return Response(serialized.data)
+    elif request.method == 'POST':
+        content = json.loads(request.body)
+        try:
+            user = AppUser.objects.get(id=content['user'])
+            content['user'] = user
+        except:
+            return Response({'message:' 'user does not exist'})
+        try:
+            incomes = Income.objects.create(**content) 
+            serialize = IncomeSerializer(incomes)
+            return Response(serialize.data)
+        except:
+            return Response({"message": "could not create an income object"})
+
+
+@api_view(['PUT'])
+def update_income(request, income_pk):
+    if request.method == 'PUT':
+        content = json.loads(request.body)
+        try:
+            income = Income.object.filter(pk=income_pk).update(**content)
+        except:
+            return Response({'message': 'income not found'})
+        serialized = IncomeSerializer(income)
+        return Response(serialized.data)
+
+
+
