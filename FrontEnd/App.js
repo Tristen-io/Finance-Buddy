@@ -17,7 +17,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Image style={styles.image}  />
- 
+      <div> testing</div>
       <StatusBar style="auto" />
       <View style={styles.inputView}>
         <TextInput
